@@ -9,7 +9,10 @@ ModernSins.Doomscroll.States.MOVING = 1
 ModernSins.Doomscroll.States.ATTACK_TECH = 2
 ModernSins.Doomscroll.States.ATTACK_SCREEN = 3
 
-ModernSins.Doomscroll.DeathDropPickups = { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_MICRO }
+ModernSins.Doomscroll.DeathDropPickups =
+{ 
+    { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_MICRO }
+}
 ModernSins.Doomscroll.DeathDropCollectible = CollectibleType.COLLECTIBLE_POKE_GO
 
 local ATTACK_TECH_INITIAL_COOLDOWN = 90
@@ -164,19 +167,27 @@ ModernSins:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function (_, npc)
     npc:BloodExplode()
     local rng = npc:GetDropRNG()
 
-    local type, variant, subtype
     if rng:RandomFloat() < 0.25 then
-        type = EntityType.ENTITY_PICKUP
-        variant = PickupVariant.PICKUP_COLLECTIBLE
-        subtype = ModernSins.Doomscroll.DeathDropCollectible
+        local type = EntityType.ENTITY_PICKUP
+        local variant = PickupVariant.PICKUP_COLLECTIBLE
+        local subtype = ModernSins.Doomscroll.DeathDropCollectible
+
+        Isaac.Spawn
+        (
+            type, variant, subtype,
+            npc.Position, Vector.Zero, nil
+        )
     else
-        type = ModernSins.Doomscroll.DeathDropPickups[1]
-        variant = ModernSins.Doomscroll.DeathDropPickups[2]
-        subtype = ModernSins.Doomscroll.DeathDropPickups[3]
+        for i, drop in ipairs(ModernSins.Doomscroll.DeathDropPickups) do
+            local type = drop[1]
+            local variant = drop[2]
+            local subtype = drop[3]
+
+            Isaac.Spawn
+            (
+                type, variant, subtype,
+                npc.Position, Vector.Zero, nil
+            )
+        end
     end
-    Isaac.Spawn
-    (
-        type, variant, subtype,
-        npc.Position, Vector.Zero, nil
-    )
 end, ModernSins.Doomscroll.ID)
