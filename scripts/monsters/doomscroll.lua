@@ -62,7 +62,6 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
 
     elseif data.State == ModernSins.Doomscroll.States.MOVING then
         
-        ---@type PathFinder
         local pathfinder = npc:GetPathfinder()
         pathfinder:MoveRandomlyAxisAligned(2, false)
         npc:MultiplyFriction(0.8)
