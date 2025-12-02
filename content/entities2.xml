@@ -9,5 +9,15 @@
         <bestiary anim="WalkVert" transform="0,0,1" />
 		<gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0"/>
     </entity>
+
+    <entity name="AIsaac" id="643" variant="2"
+		anm2path="monsters/aisaac/aisaac.anm2" portrait="0"
+		baseHP="60" stageHP="24" collisionDamage="2"
+		collisionMass="30" collisionRadius="13" numGridCollisionPoints="12" friction="1"
+		shadowSize="14"
+		boss="1" champion="0" >
+        <bestiary anim="WalkVert" transform="0,0,1" />
+		<gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0"/>
+    </entity>
 	
 </entities>
