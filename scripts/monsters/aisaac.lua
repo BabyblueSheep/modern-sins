@@ -10,7 +10,7 @@ ModernSins.AIsaac.States.MOVING = 2
 ModernSins.AIsaac.States.SHOOT_TEARS = 3
 
 ModernSins.AIsaac.DeathDropPickups =
-{ 
+{
     { EntityType.ENTITY_PICKUP, 0, 0 }
 }
 ModernSins.AIsaac.DeathDropCollectible = CollectibleType.COLLECTIBLE_EYE_SORE

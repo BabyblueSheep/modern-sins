@@ -10,7 +10,7 @@ ModernSins.Doomscroll.States.ATTACK_TECH = 2
 ModernSins.Doomscroll.States.ATTACK_SCREEN = 3
 
 ModernSins.Doomscroll.DeathDropPickups =
-{ 
+{
     { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_LIL_BATTERY, BatterySubType.BATTERY_MICRO }
 }
 ModernSins.Doomscroll.DeathDropCollectible = CollectibleType.COLLECTIBLE_POKE_GO
@@ -22,10 +22,12 @@ local ATTACK_TECH_MAXIMUM_COOLDOWN = 120
 local ATTACK_TECH_LASER_SPEED = 12
 local ATTACK_TECH_LASER_RADIUS = 32
 
-local ATTACK_SCREEN_TECH_DIRECTIONS = {}
-for i = 0, 360, 90 do
-    table.insert(ATTACK_SCREEN_TECH_DIRECTIONS, Vector.FromAngle(i))
-end
+local ATTACK_SCREEN_TECH_DIRECTIONS = {
+    Vector(1, 0),
+    Vector(0, 1),
+    Vector(-1, 0),
+    Vector(0, -1)
+}
 ATTACK_SCREEN_TECH_ANGLE_ACCURACY = 0.99
 
 local ATTACK_SCREEN_INITIAL_TIMER = 150
@@ -97,22 +99,16 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
             if isTargetVisible and data.AttackTechCooldown <= 0 then
                 local targetDistance = playerTarget.Position - npc.Position
                 targetDistance:Normalize()
-                local shouldShoot = false
-                local angle = Vector.Zero
 
                 for i, direction in ipairs(ATTACK_SCREEN_TECH_DIRECTIONS) do
                     if targetDistance:Dot(direction) > ATTACK_SCREEN_TECH_ANGLE_ACCURACY then
-                        shouldShoot = true
-                        angle = direction
+                        data.AttackTechDirection = direction
+                        data.State = ModernSins.Doomscroll.States.ATTACK_TECH
+
+                        npc:GetSprite():Play("AttackTech", true)
+                        
                         break
                     end
-                end
-
-                if shouldShoot then
-                    data.AttackTechDirection = angle
-                    data.State = ModernSins.Doomscroll.States.ATTACK_TECH
-
-                    npc:GetSprite():Play("AttackTech", true)
                 end
             end
 
