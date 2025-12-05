@@ -84,7 +84,7 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
         elseif math.abs(npc.Velocity.X) > math.abs(npc.Velocity.Y) then
             npc:GetSprite():Play("WalkHori")
             npc.FlipX = npc.Velocity.X < 0
-        elseif npc.Velocity.Y > 0 then
+        elseif npc.Velocity.Y < 0 then
             npc:GetSprite():Play("WalkUp")
         else
             npc:GetSprite():Play("WalkDown")
