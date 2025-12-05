@@ -29,5 +29,26 @@
         <bestiary anim="WalkUp" transform="0,0,1" />
 		<gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0"/>
     </entity>
+
+	<entity name="White Knight" id="643" variant="6"
+		anm2path="monsters/stan/white_knight.anm2" portrait="6"
+		baseHP="20" stageHP="0" collisionDamage="1"
+		collisionMass="10" collisionRadius="13" numGridCollisionPoints="12" friction="1"
+		shadowSize="14"
+		boss="0" champion="0"
+		shutdoors="false" >
+        <bestiary anim="WalkHori" transform="0,0,1" />
+		<gibs amount="6" blood="0" bone="1" eye="0" gut="0" large="0"/>
+    </entity>
+	
+	<entity name="Lobestar" id="643" variant="7"
+		anm2path="monsters/stan/lobestar.anm2" portrait="7"
+		baseHP="60" stageHP="20" collisionDamage="2"
+		collisionMass="30" collisionRadius="13" numGridCollisionPoints="12" friction="1"
+		shadowSize="14"
+		boss="1" champion="0" >
+        <bestiary anim="Bestiary" transform="0,0,1" />
+		<gibs amount="5" blood="1" bone="0" eye="0" gut="1" large="0"/>
+    </entity>
 	
 </entities>
