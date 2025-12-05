@@ -41,6 +41,16 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
         data.ChargeCooldown = CHARGE_INITIAL_COOLDOWN
         data.ChargeDirection = Vector.Zero
         data.StunDuration = 0
+
+        Isaac.CreateTimer(function()
+            local enemy = Isaac.FindByType(ModernSins.Stan.Lobestar.ID, ModernSins.Stan.Lobestar.Variant, npc.SubType)[1]
+            npc.Parent = enemy
+        end, 1, 1, false)
+    end
+
+    if not npc.Parent:Exists() then
+        npc:Kill()
+        return
     end
 
     if data.State == ModernSins.Stan.WhiteKnight.States.APPEAR then
