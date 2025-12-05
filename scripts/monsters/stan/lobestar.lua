@@ -9,6 +9,14 @@ ModernSins.Stan.Lobestar.States.IDLE = 1
 ModernSins.Stan.Lobestar.States.HOP = 2
 ModernSins.Stan.Lobestar.States.SLIDE = 3
 
+ModernSins.Stan.DeathDropInfo = {
+    CollectibleChance = 1/4,
+    CollectibleType = CollectibleType.COLLECTIBLE_BIG_FAN,
+    PickupTypes = {
+        { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, 0 }
+    }
+}
+
 local HOP_INITIAL_COOLDOWN = 30
 local HOP_MINIMUM_COOLDOWN = 30
 local HOP_MAXIMUM_COOLDOWN = 60
@@ -124,3 +132,13 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
 
 end, ModernSins.Stan.Lobestar.ID)
 
+---@param npc EntityNPC
+ModernSins:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function (_, npc)
+    if npc.Variant ~= ModernSins.Stan.Lobestar.Variant then
+        return
+    end
+
+    npc:BloodExplode()
+
+    ModernSins:SpawnReward(npc, ModernSins.Stan.DeathDropInfo)
+end, ModernSins.Stan.Lobestar.ID)

@@ -9,11 +9,13 @@ ModernSins.AIsaac.States.IDLE = 1
 ModernSins.AIsaac.States.MOVING = 2
 ModernSins.AIsaac.States.SHOOT_TEARS = 3
 
-ModernSins.AIsaac.DeathDropPickups =
-{
-    { EntityType.ENTITY_PICKUP, 0, 0 }
+ModernSins.AIsaac.DeathDropInfo = {
+    CollectibleChance = 1/4,
+    CollectibleType = CollectibleType.COLLECTIBLE_EYE_SORE,
+    PickupTypes = {
+        { EntityType.ENTITY_PICKUP, 0, 0 }
+    }
 }
-ModernSins.AIsaac.DeathDropCollectible = CollectibleType.COLLECTIBLE_EYE_SORE
 
 local SWITCH_FROM_MOVING_TO_IDLE_CHANCE = 0.05
 local MOVING_MINIMUM_FRAME_AMOUNT = 30
@@ -131,29 +133,6 @@ ModernSins:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function (_, npc)
     end
 
     npc:BloodExplode()
-    local rng = npc:GetDropRNG()
 
-    if rng:RandomFloat() < 0.25 then
-        local type = EntityType.ENTITY_PICKUP
-        local variant = PickupVariant.PICKUP_COLLECTIBLE
-        local subtype = ModernSins.AIsaac.DeathDropCollectible
-
-        Isaac.Spawn
-        (
-            type, variant, subtype,
-            npc.Position, Vector.Zero, nil
-        )
-    else
-        for i, drop in ipairs(ModernSins.AIsaac.DeathDropPickups) do
-            local type = drop[1]
-            local variant = drop[2]
-            local subtype = drop[3]
-
-            Isaac.Spawn
-            (
-                type, variant, subtype,
-                npc.Position, Vector.Zero, nil
-            )
-        end
-    end
+    ModernSins:SpawnReward(npc, ModernSins.AIsaac.DeathDropInfo)
 end, ModernSins.AIsaac.ID)
