@@ -10,6 +10,15 @@ ModernSins.Consumerism.States.ATTACK_CHARGE = 2
 ModernSins.Consumerism.States.CHARGE_STUNNED = 3
 ModernSins.Consumerism.States.ATTACK_SWING = 4
 
+ModernSins.Consumerism.DeathDropPickups =
+{
+    { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, 0 },
+    { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, 0 },
+    { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_COIN, 0 },
+    { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_BOMB, 0 }
+}
+ModernSins.Consumerism.DeathDropCollectible = CollectibleType.COLLECTIBLE_SACK_OF_PENNIES
+
 local ATTACK_INITIAL_COOLDOWN = 90
 local ATTACK_MINIMUM_COOLDOWN = 60
 local ATTACK_MAXIMUM_COOLDOWN = 150
@@ -246,4 +255,38 @@ ModernSins:AddCallback(ModCallbacks.MC_ENTITY_TAKE_DMG, function (_, entity, dam
     end
 
     return false
+end, ModernSins.Consumerism.ID)
+
+---@param npc EntityNPC
+ModernSins:AddCallback(ModCallbacks.MC_POST_NPC_DEATH, function (_, npc)
+    if npc.Variant ~= ModernSins.Consumerism.Variant then
+        return
+    end
+
+    npc:BloodExplode()
+    local rng = npc:GetDropRNG()
+
+    if rng:RandomFloat() < 0.25 then
+        local type = EntityType.ENTITY_PICKUP
+        local variant = PickupVariant.PICKUP_COLLECTIBLE
+        local subtype = ModernSins.Consumerism.DeathDropCollectible
+
+        Isaac.Spawn
+        (
+            type, variant, subtype,
+            npc.Position, Vector.Zero, nil
+        )
+    else
+        for i, drop in ipairs(ModernSins.Consumerism.DeathDropPickups) do
+            local type = drop[1]
+            local variant = drop[2]
+            local subtype = drop[3]
+
+            Isaac.Spawn
+            (
+                type, variant, subtype,
+                npc.Position, Vector.Zero, nil
+            )
+        end
+    end
 end, ModernSins.Consumerism.ID)
