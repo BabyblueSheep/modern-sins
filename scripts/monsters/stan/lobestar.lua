@@ -9,14 +9,6 @@ ModernSins.Stan.Lobestar.States.IDLE = 1
 ModernSins.Stan.Lobestar.States.HOP = 2
 ModernSins.Stan.Lobestar.States.SLIDE = 3
 
-ModernSins.Stan.DeathDropInfo = {
-    CollectibleChance = 1/4,
-    CollectibleType = CollectibleType.COLLECTIBLE_BIG_FAN,
-    PickupTypes = {
-        { EntityType.ENTITY_PICKUP, PickupVariant.PICKUP_GRAB_BAG, 0 }
-    }
-}
-
 local HOP_INITIAL_COOLDOWN = 30
 local HOP_MINIMUM_COOLDOWN = 30
 local HOP_MAXIMUM_COOLDOWN = 60

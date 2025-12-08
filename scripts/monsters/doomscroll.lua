@@ -48,6 +48,7 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
     end
 
     local data = npc:GetData()
+    local pathfinder = npc:GetPathfinder()
 
     if not data.Init then
         npc:GetSprite():Play("Appear", true)
@@ -69,7 +70,6 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
 
     elseif data.State == ModernSins.Doomscroll.States.MOVING then
         
-        local pathfinder = npc:GetPathfinder()
         pathfinder:MoveRandomlyAxisAligned(2, false)
         npc:MultiplyFriction(0.8)
 
