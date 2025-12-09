@@ -145,7 +145,8 @@ ModernSins:AddCallback(ModCallbacks.MC_NPC_UPDATE, function (_, npc)
             SFXManager():Play(SoundEffect.SOUND_SPIDER_COUGH)
 
             for i = 0, FLY_SUMMON_AMOUNT - 1 do
-                local fly = Isaac.Spawn(EntityType.ENTITY_DART_FLY, 0, 0, npc.Position, rng:RandomVector() * 2, npc)
+                local offset = rng:RandomVector() * 30
+                local fly = Isaac.Spawn(EntityType.ENTITY_DART_FLY, 0, 0, npc.Position + offset, Vector.Zero, npc)
             end
         end
 
