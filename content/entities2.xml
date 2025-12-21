@@ -52,7 +52,7 @@
     </entity>
 
 	<entity name="Soy" id="643" variant="10"
-		anm2path="monsters/soy/soy.anm2" portrait="7"
+		anm2path="monsters/soy/soy.anm2" portrait="10"
 		baseHP="60" stageHP="20" collisionDamage="2"
 		collisionMass="30" collisionRadius="13" numGridCollisionPoints="12" friction="1"
 		shadowSize="14"
@@ -62,7 +62,7 @@
     </entity>
 
 	<entity name="Goon" id="643" variant="12"
-		anm2path="monsters/goon/goon.anm2" portrait="7"
+		anm2path="monsters/goon/goon.anm2" portrait="12"
 		baseHP="60" stageHP="20" collisionDamage="2"
 		collisionMass="30" collisionRadius="13" numGridCollisionPoints="12" friction="1"
 		shadowSize="14"
@@ -70,5 +70,18 @@
         <bestiary anim="WalkDown" transform="0,0,1" />
 		<gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0"/>
     </entity>
+	
+	<entity name="Ragebait" id="643" variant="14"
+		anm2path="monsters/ragebait/ragebait.anm2" portrait="14"
+		baseHP="60" stageHP="20" collisionDamage="2"
+		collisionMass="30" collisionRadius="13" numGridCollisionPoints="12" friction="1"
+		shadowSize="14"
+		boss="1" champion="0" >
+        <bestiary anim="WalkDown" transform="0,0,1" />
+		<gibs amount="6" blood="1" bone="1" eye="1" gut="1" large="0"/>
+    </entity>
+
+	<entity name="Ragebait Ring" id="1000" variant="512"
+		anm2path="monsters/ragebait/ragebait ring.anm2" />
 	
 </entities>
